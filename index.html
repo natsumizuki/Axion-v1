@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXION v1</title>
+    <style>
+        :root { --cyan: #00e5ff; --dark: #01040a; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; 
+            background: var(--dark); color: white;
+            font-family: sans-serif; overflow-x: hidden;
+        }
+        #bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        
+        /* CORREÇÃO DO CÍRCULO: z-index negativo e pointer-events none */
+        .sq {
+            position: absolute; background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            pointer-events: none; z-index: -1;
+            animation: float 15s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translate(var(--mx), var(--my)) rotate(360deg); opacity: 0; }
+        }
+
+        .wrapper { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .title { color: var(--cyan); font-size: 40px; margin-top: 40px; text-shadow: 0 0 15px var(--cyan); }
+        .grid { display: grid; width: 100%; max-width: 350px; gap: 15px; margin-top: 30px; }
+        .card { 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(0,229,255,0.2);
+            border-radius: 15px; padding: 20px; display: flex; 
+            justify-content: space-between; align-items: center;
+            text-decoration: none; color: white; backdrop-filter: blur(10px);
+        }
+        .flame { font-size: 25px; filter: hue-rotate(190deg) drop-shadow(0 0 5px var(--cyan)); }
+    </style>
+</head>
+<body>
+    <div id="bg"></div>
+    <div class="wrapper">
+        <h1 class="title">AXION v1</h1>
+        <div class="grid">
+            <a href="https://chatgpt.com" class="card"><div><h3>ChatGPT 5</h3></div><div class="flame">🔥</div></a>
+            <a href="https://gemini.google.com" class="card"><div><h3>Gemini 3</h3></div><div class="flame">🔥</div></a>
+            <a href="https://chat.deepseek.com" class="card"><div><h3>DeepSeek</h3></div><div class="flame">🔥</div></a>
+            <a href="https://grok.com" class="card"><div><h3>Grok 4</h3></div><div class="flame">🔥</div></a>
+            <a href="#" class="card"><div><h3>Claude 4</h3></div><div class="flame">🔥</div></a>
+        </div>
+    </div>
+    <script>
+        const bg = document.getElementById('bg');
+        function mkSq() {
+            const s = document.createElement('div'); s.className = 'sq';
+            const size = Math.random() * 30 + 10 + 'px';
+            s.style.width = size; s.style.height = size;
+            s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
+            s.style.setProperty('--mx', (Math.random() - 0.5) * 200 + 'px');
+            s.style.setProperty('--my', (Math.random() - 0.5) * 200 + 'px');
+            bg.appendChild(s); setTimeout(() => s.remove(), 15000);
+        }
+        setInterval(mkSq, 2000); for(let i=0; i<8; i++) mkSq();
+    </script>
+</body>
+</html>
